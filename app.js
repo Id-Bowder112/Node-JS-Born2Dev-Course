@@ -2,19 +2,27 @@ import chalk from 'chalk';
 import express from 'express';
 import morgan from 'morgan';
 import debug from 'debug';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
+
+const __filename = fileURLToPath(
+    import.meta.url);
+const __dirname = path.dirname(__filename);
 const app = express();
-const port = 3000;
+const PORT = process.env.PORT;
+
+app.use(morgan('combined'));
+app.use(express.static(path.join(__dirname, "/public/")));
+app.set("views", "./src/views");
+app.set("views engine", "ejs")
+
 
 app.get("/", (req, res) => {
 
-    res.send('Hello WOrld');
+    res.render('index.ejs', { username: "Pachara" });
 })
-app.get("/1", (req, res) => {
 
-    res.send('Hoo o');
-})
-app.use(morgan('combined'));
-app.listen(port, () => {
-    console.log(`listening on port ${chalk.blue(port)}`);
+app.listen(PORT, () => {
+    console.log(`listening on port ${chalk.blue(PORT)}`);
 });
