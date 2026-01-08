@@ -12,7 +12,7 @@ app.get("/", (req, res) => {
 })
 app.get("/1", (req, res) => {
 
-    res.send('Wolrd Hello');
+    res.send('Hoo o');
 })
 app.use(morgan('combined'));
 app.listen(port, () => {
